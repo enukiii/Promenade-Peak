@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promenade Peak - Luxury Living</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      color: #333;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    /* Modern Navigation */
+    .navbar {
+      position: fixed; 
+      top: 0; 
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95); 
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      gap: 2.5rem; 
+      padding: 1rem 2rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .navbar.scrolled {
+      padding: 0.7rem 2rem;
+      background: rgba(255,255,255,0.98);
+    }
+    .navbar a {
+      color: #2b5876; 
+      text-decoration: none; 
+      font-weight: 500; 
+      font-size: 0.95rem; 
+      padding: 0.5rem 0.8rem; 
+      border-radius: 4px; 
+      transition: all 0.3s;
+      position: relative;
+    }
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #bfa76a;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .navbar a:hover::after {
+      visibility: visible;
+      width: 100%;
+    }
+    .navbar a:hover { 
+      color: #bfa76a; 
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 900px;
+      padding: 2rem;
+      color: white;
+      animation: fadeIn 1.5s;
+    }
+    .hero h1 {
+      margin: 0 0 1rem 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 4.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+      text-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Hero Background Slider */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+      z-index: 2;
+    }
+    .hero-bg img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+    .hero-bg img.active {
+      opacity: 1;
+    }
+    
+    /* Logo */
+    .logo-container {
+      position: absolute;
+      top: 1.5rem;
+      left: 2rem;
+      z-index: 1001;
+    }
+    .logo {
+      height: 50px;
+      width: auto;
+      transition: all 0.3s ease;
+    }
+    
+    /* Buttons */
+    .cta-btn {
+      background: linear-gradient(90deg, #bfa76a, #d4b978); 
+      color: #fff; 
+      border: none; 
+      padding: 1rem 2.2rem; 
+      border-radius: 50px; 
+      font-size: 1.1rem; 
+      margin: 0 0.5rem 1rem 0.5rem; 
+      cursor: pointer; 
+      text-decoration: none; 
+      font-weight: 600; 
+      box-shadow: 0 4px 15px rgba(191,167,106,0.25); 
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .cta-btn:hover { 
+      transform: translateY(-3px); 
+      box-shadow: 0 7px 20px rgba(191,167,106,0.35); 
+      background: linear-gradient(90deg, #d4b978, #e5ca89);
+    }
+    .cta-secondary {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .cta-secondary:hover {
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 7px 20px rgba(0,0,0,0.2);
+    }
+    
+    /* Sections */
+    .section {
+      max-width: 1200px;
+      margin: 5rem auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      padding: 0;
+      animation: fadeIn 1s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    @keyframes fadeIn { 
+      from { opacity: 0; transform: translateY(30px); } 
+      to { opacity: 1; transform: none; } 
+    }
+    
+    .section h2 { 
+      color: #2b5876; 
+      margin-top: 0; 
+      font-size: 2.3rem; 
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Grid Layout */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 0;
+    }
+    
+    /* Property Overview Section */
+    .property-info {
+      padding: 3.5rem;
+      background: #fff;
+    }
+    .property-image {
+      position: relative;
+      height: 100%;
+      min-height: 500px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .property-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+    .property-image img.active {
+      opacity: 1;
+    }
+    
+    /* Unit Types */
+    .unit-list { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem; 
+    }
+    .unit-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      border: 1px solid #f0f0f0;
+    }
+    .unit-card:hover {
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      transform: translateY(-5px);
+      border-color: #ddd;
+    }
+    .unit-card h3 { 
+      margin: 0 0 0.8rem 0; 
+      font-size: 1.2rem; 
+      font-weight: 600; 
+      color: #2b5876;
+    }
+    .unit-card p { 
+      font-size: 1.1rem; 
+      margin: 0;
+      font-weight: 700;
+      color: #bfa76a;
+    }
+    
+    /* Property Details */
+    .info-list { 
+      list-style: none; 
+      padding: 0; 
+      margin: 0; 
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .info-list li {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+    .info-list li:hover {
+      background: #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+    .info-list i { 
+      color: #bfa76a; 
+      font-size: 1.3rem; 
+    }
+    
+    /* Development Info */
+    .development-info {
+      background: #f8f9fa;
+      padding: 3rem;
+      border-radius: 16px;
+      margin-top: 2rem;
+    }
+    .dev-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .dev-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .dev-item-title {
+      font-weight: 600;
+      color: #888;
+      font-size: 0.9rem;
+    }
+    .dev-item-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2b5876;
+    }
+    
+    /* Media Queries */
+    @media (max-width: 1200px) {
+      .section {
+        margin: 4rem 2rem;
+      }
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .property-info {
+        padding: 2.5rem;
+      }
+      .development-info {
+        padding: 2rem;
+      }
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .hero p {
+        font-size: 1.3rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0.8rem 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .logo-container {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        width: 100%;
+      }
+      .section {
+        margin: 3rem 1.5rem;
+      }
+      .property-image {
+        min-height: 350px;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+      }
+      .property-info {
+        padding: 2rem 1.5rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .navbar {
+        padding: 0.8rem 0.5rem;
+        gap: 0.5rem;
+      }
+      .navbar a {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+      }
+      .section {
+        margin: 2rem 1rem;
+        border-radius: 12px;
+      }
+      .property-info {
+        padding: 1.5rem;
+      }
+      .development-info {
+        padding: 1.5rem;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
+      .cta-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+        width: 100%;
+        margin: 0 0 1rem 0;
+        text-align: center;
+      }
+      .unit-list {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Pricing Table */
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+    .pricing-table tr {
+      border-bottom: 1px solid #eee;
+      transition: all 0.3s ease;
+    }
+    .pricing-table tr:hover {
+      background-color: #f8f9fa;
+    }
+    .pricing-table td {
+      padding: 1rem;
+      vertical-align: middle;
+    }
+    .pricing-table td:last-child {
+      font-weight: 700;
+      color: #bfa76a;
+      text-align: right;
+      font-size: 1.1rem;
+    }
+    
+    /* Contact form */
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group.full {
+      grid-column: span 2;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #555;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: #bfa76a;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(191,167,106,0.1);
+    }
+    
+    /* Map */
+    .map-container {
+      width: 100%;
+      height: 450px;
+      margin: 3rem 0 1.5rem 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    
+    /* Footer */
+    footer {
+      background: #2b5876;
+      color: #fff;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      text-align: left;
+    }
+    .footer-section h4 {
+      color: #fff;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    .footer-section h4::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 2px;
+      background: #bfa76a;
+    }
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-section li {
+      margin-bottom: 0.8rem;
+    }
+    .footer-section a {
+      color: #ccc;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .footer-section a:hover {
+      color: #fff;
+    }
+    .footer-bottom {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    
+    /* WhatsApp button */
+    .whatsapp-btn {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      z-index: 999;
+      background: #25d366;
+      color: #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.35);
+      transition: all 0.3s ease;
+    }
+    .whatsapp-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="PromenadePeak.png" alt="Promenade Peak Logo" class="logo">
+  </div>
+  
+  <nav class="navbar">
+    <a href="#overview"><i class="fas fa-building"></i> Overview</a>
+    <a href="#amenities"><i class="fas fa-map-marker-alt"></i> Amenities</a>
+    <a href="#floorplans"><i class="fas fa-file-alt"></i> Floorplans</a>
+    <a href="#investment"><i class="fas fa-chart-line"></i> Investment</a>
+    <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+  </nav>
+  
+  <!-- Hero Section with Full Screen Image Slider -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="day.jpg" alt="Promenade Peak Day View" class="active">
+      <img src="night.jpg" alt="Promenade Peak Night View">
+    </div>
+    <div class="hero-content">
+      <h1>Promenade Peak</h1>
+      <p>Redefining Luxury Living in Singapore's District 3</p>
+      <div>
+        <a class="cta-btn" href="https://form.typeform.com/to/D5PG7bdK" target="_blank"><i class="fas fa-envelope"></i> Contact Us</a>
+        <a class="cta-btn cta-secondary" href="https://form.typeform.com/to/D5PG7bdK" target="_blank"><i class="fas fa-calendar"></i> Book Viewing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="overview">
+    <div class="grid-container">
+      <div class="property-info">
+        <h2>Property Overview</h2>
+        <p style="font-size:1.1rem; color:#555; margin-bottom:2rem; line-height:1.8;">Located at <b>Zion Road (Parcel B)</b>, and developed by <b>Allgreen Properties</b>, this highly anticipated project is set to redefine luxury living with <b>596 residential units</b> spread across a rare site area of <b>9,287.8 sqm</b> and a <b>gross floor area of 52,002 sqm</b>.</p>
+        
+        <table class="pricing-table">
+          <tr>
+            <td>1 Bedroom + Study</td>
+            <td>From $1.433 M</td>
+          </tr>
+          <tr>
+            <td>2 Bedroom</td>
+            <td>From $1.874 M</td>
+          </tr>
+          <tr>
+            <td>2 Bedroom + Study</td>
+            <td>From $2.133 M</td>
+          </tr>
+          <tr>
+            <td>3 Bedroom</td>
+            <td>From $2.831 M</td>
+          </tr>
+          <tr>
+            <td>3 Bedroom Premium (with Private Lift)</td>
+            <td>From $3.814 M</td>
+          </tr>
+          <tr>
+            <td>4 Bedroom Premium (with Private Lift)</td>
+            <td>From $4.476 M</td>
+          </tr>
+          <tr>
+            <td>5 Bedroom Premium (with Private Lift)</td>
+            <td>From $6.217 M</td>
+          </tr>
+          <tr>
+            <td>Penthouse</td>
+            <td>Enquire Now</td>
+          </tr>
+        </table>
+        
+        <div class="development-info">
+          <h3 style="margin-top:0; font-family:'Playfair Display', serif; color:#2b5876; margin-bottom:2rem;">Development Information</h3>
+          <div class="dev-grid">
+            <div class="dev-item">
+              <div class="dev-item-title">
+                <i class="fas fa-map-marker-alt"></i> District
+              </div>
+              <div class="dev-item-value">
+                03 (Alexandra, Tiong Bahru)
+              </div>
+            </div>
+            <div class="dev-item">
+              <div class="dev-item-title">
+                <i class="fas fa-location-arrow"></i> Land Name
+              </div>
+              <div class="dev-item-value">
+                Zion Road (Parcel B)
+              </div>
+            </div>
+            <div class="dev-item">
+              <div class="dev-item-title">
+                <i class="fas fa-home"></i> No. of Units
+              </div>
+              <div class="dev-item-value">
+                596 (1 Block of 63 Storey)
+              </div>
+            </div>
+            <div class="dev-item">
+              <div class="dev-item-title">
+                <i class="fas fa-calendar-alt"></i> TOP
+              </div>
+              <div class="dev-item-value">
+                Est. Q4 2029
+              </div>
+            </div>
+            <div class="dev-item">
+              <div class="dev-item-title">
+                <i class="fas fa-sync-alt"></i> Tenure
+              </div>
+              <div class="dev-item-value">
+                99 Years Leasehold
+              </div>
+            </div>
+            <div class="dev-item">
+              <div class="dev-item-title">
+                <i class="fas fa-industry"></i> Developer
+              </div>
+              <div class="dev-item-value">
+                Allgreen Properties
+              </div>
+            </div>
+            <div class="dev-item">
+              <div class="dev-item-title">
+                <i class="fas fa-ruler-combined"></i> Site Area
+              </div>
+              <div class="dev-item-value">
+                9,287.8 sqm
+              </div>
+            </div>
+            <div class="dev-item">
+              <div class="dev-item-title">
+                <i class="fas fa-chart-area"></i> Gross Floor Area
+              </div>
+              <div class="dev-item-value">
+                52,002 sqm
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-top:3rem; text-align:center;">
+          <a class="cta-btn" href="https://form.typeform.com/to/D5PG7bdK" target="_blank">Book Showflat Viewing</a>
+        </div>
+      </div>
+      
+      <div class="property-image">
+        <img src="day.jpg" alt="Promenade Peak Day View" class="active">
+        <img src="night.jpg" alt="Promenade Peak Night View">
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="amenities">
+    <div style="padding:2rem;">
+      <h2><i class="fas fa-map-marker-alt"></i> Location & Amenities</h2>
+      <p style="text-align:center; max-width:800px; margin:0 auto 3rem auto; color:#555; font-size:1.1rem;">
+        Strategically located in District 3, Promenade Peak offers unparalleled connectivity and access to Singapore's finest amenities, making it an ideal place to call home.
+      </p>
+      
+      <div style="padding:0 2rem 3rem; background:#f9f9f9; border-radius:12px; margin-bottom:3rem;">
+        <div class="amenities-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2.5rem; padding:2rem 0;">
+          <!-- MRT Stations -->
+          <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.05);">
+            <div style="display:flex; align-items:center; margin-bottom:1.2rem;">
+              <div style="width:50px; height:50px; background:#f8f8f8; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-right:1rem;">
+                <i class="fas fa-train" style="font-size:1.4rem; color:#bfa76a;"></i>
+              </div>
+              <h3 style="margin:0; font-size:1.3rem; color:#2b5876;">MRT Stations</h3>
+            </div>
+            <p style="margin:0; color:#555; line-height:1.6;">Great World, Havelock</p>
+          </div>
+
+          <!-- Shopping -->
+          <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.05);">
+            <div style="display:flex; align-items:center; margin-bottom:1.2rem;">
+              <div style="width:50px; height:50px; background:#f8f8f8; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-right:1rem;">
+                <i class="fas fa-shopping-cart" style="font-size:1.4rem; color:#bfa76a;"></i>
+              </div>
+              <h3 style="margin:0; font-size:1.3rem; color:#2b5876;">Shopping</h3>
+            </div>
+            <p style="margin:0; color:#555; line-height:1.6;">Great World City, Tiong Bahru Market</p>
+          </div>
+
+          <!-- Dining -->
+          <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.05);">
+            <div style="display:flex; align-items:center; margin-bottom:1.2rem;">
+              <div style="width:50px; height:50px; background:#f8f8f8; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-right:1rem;">
+                <i class="fas fa-utensils" style="font-size:1.4rem; color:#bfa76a;"></i>
+              </div>
+              <h3 style="margin:0; font-size:1.3rem; color:#2b5876;">Dining</h3>
+            </div>
+            <p style="margin:0; color:#555; line-height:1.6;">Zion Riverside Food Centre, Tiong Bahru Eateries</p>
+          </div>
+
+          <!-- Parks & Recreation -->
+          <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.05);">
+            <div style="display:flex; align-items:center; margin-bottom:1.2rem;">
+              <div style="width:50px; height:50px; background:#f8f8f8; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-right:1rem;">
+                <i class="fas fa-tree" style="font-size:1.4rem; color:#bfa76a;"></i>
+              </div>
+              <h3 style="margin:0; font-size:1.3rem; color:#2b5876;">Parks & Recreation</h3>
+            </div>
+            <p style="margin:0; color:#555; line-height:1.6;">Alexandra Park Connector, Singapore River</p>
+          </div>
+
+          <!-- Educational Institutions -->
+          <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.05);">
+            <div style="display:flex; align-items:center; margin-bottom:1.2rem;">
+              <div style="width:50px; height:50px; background:#f8f8f8; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-right:1rem;">
+                <i class="fas fa-school" style="font-size:1.4rem; color:#bfa76a;"></i>
+              </div>
+              <h3 style="margin:0; font-size:1.3rem; color:#2b5876;">Educational Institutions</h3>
+            </div>
+            <p style="margin:0; color:#555; line-height:1.6;">River Valley Primary, Alexandra Primary, Zhangde Primary, Gan Eng Seng Primary, CHIJ Kellock</p>
+          </div>
+
+          <!-- Healthcare -->
+          <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.05);">
+            <div style="display:flex; align-items:center; margin-bottom:1.2rem;">
+              <div style="width:50px; height:50px; background:#f8f8f8; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-right:1rem;">
+                <i class="fas fa-hospital" style="font-size:1.4rem; color:#bfa76a;"></i>
+              </div>
+              <h3 style="margin:0; font-size:1.3rem; color:#2b5876;">Healthcare</h3>
+            </div>
+            <p style="margin:0; color:#555; line-height:1.6;">Singapore General Hospital, Alexandra Hospital</p>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:center; position:relative; height:400px; overflow:hidden; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.1); margin-top:2rem;">
+          <!-- Great World Image Slider -->
+          <div class="great-world-slider" style="position:relative; width:100%; height:100%;">
+            <img src="greatworldmrt.png" alt="Great World" class="gw-slide active" style="position:absolute; width:100%; height:100%; object-fit:cover; transition:opacity 1s ease; opacity:1;">
+            <img src="gr8 world.jpg" alt="Great World Mall" class="gw-slide" style="position:absolute; width:100%; height:100%; object-fit:cover; transition:opacity 1s ease; opacity:0;">
+            <img src="tiong bahru.jpg" alt="Great World MRT" class="gw-slide" style="position:absolute; width:100%; height:100%; object-fit:cover; transition:opacity 1s ease; opacity:0;">
+            <div style="position:absolute; bottom:20px; left:0; right:0; display:flex; justify-content:center; gap:10px;">
+              <span class="gw-dot active" style="width:10px; height:10px; background:rgba(255,255,255,0.6); border-radius:50%; cursor:pointer; transition:all 0.3s ease;"></span>
+              <span class="gw-dot" style="width:10px; height:10px; background:rgba(255,255,255,0.3); border-radius:50%; cursor:pointer; transition:all 0.3s ease;"></span>
+              <span class="gw-dot" style="width:10px; height:10px; background:rgba(255,255,255,0.3); border-radius:50%; cursor:pointer; transition:all 0.3s ease;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.797324893019!2d103.8303560758397!3d1.2929538620990136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da199e2e2e2e2f%3A0x2e2e2e2e2e2e2e2e!2sZion%20Road%2C%20Singapore!5e0!3m2!1sen!2ssg!4v1692620000000!5m2!1sen!2ssg"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="floorplans">
+    <div style="padding:2rem;">
+      <h2><i class="fas fa-file-alt"></i> Floorplans & Brochure</h2>
+      <p style="text-align:center; max-width:800px; margin:0 auto 3rem auto; color:#555; font-size:1.1rem;">
+        Each residence at Promenade Peak is meticulously designed to maximize space and functionality, creating the perfect balance of comfort and luxury for modern living.
+      </p>
+      
+      <div class="grid-container" style="margin-bottom:3rem;">
+        <div style="padding:2rem; display:flex; align-items:center; justify-content:center; background:#f0f4f8;">
+          <img src="Floorplan.png" alt="Promenade Peak Night View" style="max-width:100%; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.1);">
+        </div>
+        
+        <div style="padding:3rem;">
+          <h3 style="font-family:'Playfair Display', serif; margin-top:0; color:#2b5876;">Thoughtfully Designed Spaces</h3>
+          <p style="font-size:1.05rem; line-height:1.8; margin-bottom:2rem; color:#555;">
+            Choose from a range of smart, functional layouts that cater to different lifestyle needs. Each unit is designed to maximize space efficiency while providing comfort and luxury.
+          </p>
+          <ul style="padding-left:1.5rem; margin-bottom:2.5rem;">
+            <li style="margin-bottom:1rem; color:#555;">Premium finishes and fittings throughout</li>
+            <li style="margin-bottom:1rem; color:#555;">Spacious living areas with abundant natural light</li>
+            <li style="margin-bottom:1rem; color:#555;">Smart home features for modern convenience</li>
+            <li style="margin-bottom:1rem; color:#555;">Private lift access for premium units</li>
+          </ul>
+          <div>
+            <a class="cta-btn" href="https://form.typeform.com/to/D5PG7bdK" target="_blank"><i class="fas fa-file-download"></i> Download Brochure</a>
+            <a class="cta-btn" style="background:#fff; color:#2b5876; border:1px solid #2b5876; margin-left:1rem;" href="https://form.typeform.com/to/D5PG7bdK" target="_blank"><i class="fas fa-file-alt"></i> Request Floor Plans</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="investment">
+    <div style="padding:2rem;">
+      <h2><i class="fas fa-chart-line"></i> Investment Potential</h2>
+      <p style="text-align:center; max-width:800px; margin:0 auto 3rem auto; color:#555; font-size:1.1rem;">
+        Promenade Peak presents an exceptional investment opportunity in one of Singapore's most sought-after districts, offering strong potential for capital appreciation.
+      </p>
+      
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; padding:1rem 1rem 3rem 1rem;">
+        <div style="background:#fff; border-radius:12px; padding:2rem; box-shadow:0 10px 30px rgba(0,0,0,0.05); transition:all 0.3s ease;">
+          <div style="font-size:2.5rem; color:#bfa76a; margin-bottom:1.5rem;">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <h3 style="margin:0 0 1rem 0; color:#2b5876;">Prime Location</h3>
+          <p style="color:#666; line-height:1.7;">
+            District 3 is one of Singapore's most desirable areas, with proximity to the Central Business District and premium lifestyle amenities.
+          </p>
+        </div>
+        
+        <div style="background:#fff; border-radius:12px; padding:2rem; box-shadow:0 10px 30px rgba(0,0,0,0.05); transition:all 0.3s ease;">
+          <div style="font-size:2.5rem; color:#bfa76a; margin-bottom:1.5rem;">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3 style="margin:0 0 1rem 0; color:#2b5876;">Quality Development</h3>
+          <p style="color:#666; line-height:1.7;">
+            Developed by the reputable Allgreen Properties, ensuring high-quality construction, premium finishes, and excellent property management.
+          </p>
+        </div>
+        
+        <div style="background:#fff; border-radius:12px; padding:2rem; box-shadow:0 10px 30px rgba(0,0,0,0.05); transition:all 0.3s ease;">
+          <div style="font-size:2.5rem; color:#bfa76a; margin-bottom:1.5rem;">
+            <i class="fas fa-project-diagram"></i>
+          </div>
+          <h3 style="margin:0 0 1rem 0; color:#2b5876;">Future Growth</h3>
+          <p style="color:#666; line-height:1.7;">
+            Ongoing infrastructure developments and urban renewal projects in the vicinity are expected to enhance property values in the coming years.
+          </p>
+        </div>
+      </div>
+      
+      <div style="text-align:center; margin-top:1rem;">
+        <a class="cta-btn" href="https://form.typeform.com/to/D5PG7bdK" target="_blank">Check Balance Units</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div style="display:flex; flex-direction:row; overflow:hidden; border-radius:16px;">
+      <!-- Left side: Pool Image -->
+      <div style="flex: 3; position:relative; min-height:550px; display:flex; overflow:hidden;">
+        <img src="pool.jpg" alt="Promenade Peak Pool" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      
+      <!-- Right side: Gold contact panel -->
+      <div style="flex: 2; background:linear-gradient(135deg, #bfa76a 0%, #d4b978 100%); color:white; padding:4rem 3rem; display:flex; flex-direction:column; justify-content:center;">
+        <h2 style="color:white; font-size:3.5rem; margin-bottom:0.2rem; font-family:'Playfair Display', serif;">Get in Touch!</h2>
+        <div style="width:60px; height:3px; background:white; margin-bottom:2rem;"></div>
+        
+        <p style="font-size:1.1rem; margin-bottom:2.5rem; line-height:1.7;">
+          For any inquires or additional information, please contact the official <strong>Promenade Peak</strong> sales team!
+        </p>
+        
+        <hr style="border:none; border-top:1px solid rgba(255,255,255,0.3); margin:2rem 0;">
+        
+        <a href="https://form.typeform.com/to/D5PG7bdK" target="_blank" class="cta-btn" style="background:white; color:#bfa76a; border-radius:50px; display:inline-flex; align-items:center; justify-content:center; width:250px; padding:1rem 2rem; margin:0 auto; text-decoration:none; font-weight:600;">
+          <i class="fas fa-phone-alt" style="margin-right:0.8rem;"></i> Contact Us Now
+        </a>
+        
+        <p style="font-size:0.9rem; margin-top:2.5rem; text-align:center; opacity:0.8;">
+          * All images are for illustrative purposes only. *
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#2b5876; padding:3rem 2rem 2rem; text-align:center;">    
+    <div class="footer-bottom" style="max-width:1000px; margin:0 auto;">
+      <p style="color:#e0e0e0; font-size:0.9rem; line-height:1.6; margin-bottom:2rem;">
+        This website may contain forward-looking statements that are subject to change. All statements, information, and visuals are for illustrative purposes only and do not form part of any contract or offer for the sale of housing units.
+      </p>
+      <p style="color:#e0e0e0; font-size:0.9rem; opacity:0.9;">
+        <i class="far fa-copyright"></i> 2025 | Promenade Peak by Allgreen Properties | All Rights Reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Contact Floating Button -->
+  <a href="https://wa.me/+6592977999" target="_blank" title="Contact Us on WhatsApp" class="whatsapp-btn" style="background:#25d366; width:65px; height:65px; box-shadow:0 5px 20px rgba(37, 211, 102, 0.4); border:2px solid rgba(255,255,255,0.3);">
+    <i class="fab fa-whatsapp" style="font-size:2rem;"></i>
+  </a>
+  
+  <script>
+    // Hero image slider
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hero image slider
+      const heroImages = document.querySelectorAll('.hero-bg img');
+      let heroIndex = 0;
+      setInterval(() => {
+        heroImages[heroIndex].classList.remove('active');
+        heroIndex = (heroIndex + 1) % heroImages.length;
+        heroImages[heroIndex].classList.add('active');
+      }, 5000);
+      
+      // Property image slider
+      const propertyImages = document.querySelectorAll('.property-image img');
+      let propertyIndex = 0;
+      setInterval(() => {
+        propertyImages[propertyIndex].classList.remove('active');
+        propertyIndex = (propertyIndex + 1) % propertyImages.length;
+        propertyImages[propertyIndex].classList.add('active');
+      }, 4000);
+      
+      // Great World image slider - every 3 seconds
+      const greatWorldSlides = document.querySelectorAll('.gw-slide');
+      const greatWorldDots = document.querySelectorAll('.gw-dot');
+      let gwIndex = 0;
+      
+      function showGreatWorldSlide(index) {
+        // Hide all slides
+        greatWorldSlides.forEach(slide => {
+          slide.style.opacity = "0";
+          slide.classList.remove('active');
+        });
+        
+        // Deactivate all dots
+        greatWorldDots.forEach(dot => {
+          dot.style.background = "rgba(255,255,255,0.3)";
+          dot.classList.remove('active');
+        });
+        
+        // Show current slide and activate dot
+        greatWorldSlides[index].style.opacity = "1";
+        greatWorldSlides[index].classList.add('active');
+        greatWorldDots[index].style.background = "rgba(255,255,255,0.6)";
+        greatWorldDots[index].classList.add('active');
+      }
+      
+      // Set up dot click events
+      greatWorldDots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          gwIndex = i;
+          showGreatWorldSlide(gwIndex);
+        });
+      });
+      
+      // Auto slide every 3 seconds
+      setInterval(() => {
+        gwIndex = (gwIndex + 1) % greatWorldSlides.length;
+        showGreatWorldSlide(gwIndex);
+      }, 3000);
+      
+      // Navbar scroll effect
+      const navbar = document.querySelector('.navbar');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
